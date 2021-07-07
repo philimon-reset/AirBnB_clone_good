@@ -53,7 +53,7 @@ The interperter is executed by executing the console.
 ## How to use
 ### Interactive mode
 
-![](https://github.com/Doro-000/simple_shell/blob/master/image_2021-04-29_11-41-41.png?raw=true)
+![](https://github.com/philimon-reset/AirBnB_clone/blob/main/project.png)
 
 ### Non - Interactive mode
 ```$

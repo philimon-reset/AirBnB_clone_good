@@ -8,7 +8,6 @@ header {
 
 .logo {
         /* Background pattern from Toptal Subtle Patterns */
-        box-sizing: border-box;
         position: absolute;
         background-image: url("../images/logo.png");
         background-repeat: no-repeat;

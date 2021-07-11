@@ -2,10 +2,10 @@ footer {
         background:white;
         width: 100%;
         border-top: 1px solid #CCCCCC;
-        height: 60px;
+        padding-top: 30px;
+        padding-bottom: 30px;
+        margin-top: 100%;
         bottom: 0;
-        position: fixed;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        position: absolute;
+        text-align: center;
 }

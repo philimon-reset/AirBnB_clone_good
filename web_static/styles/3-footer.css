@@ -6,6 +6,6 @@ footer {
         padding-bottom: 30px;
         margin-top: 100%;
         bottom: 0;
-        position: absolute;
+        position: fixed;
         text-align: center;
 }

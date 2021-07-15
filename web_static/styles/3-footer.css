@@ -4,8 +4,6 @@ footer {
         border-top: 1px solid #CCCCCC;
         padding-top: 30px;
         padding-bottom: 30px;
-        margin-top: 100%;
         bottom: 0;
-        position: fixed;
         text-align: center;
 }

@@ -28,6 +28,7 @@ article {
         display: flex;
         align-items: center;
         flex-wrap: wrap;
+        min-height: 450px;
         align-content: flex-start;
         justify-content: center;
 }

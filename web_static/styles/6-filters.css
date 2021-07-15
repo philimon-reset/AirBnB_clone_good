@@ -85,7 +85,7 @@ button:hover {
         border-right: 1px solid #DDDDDD;
 }
 
-.amenities {
+.filters .amenities {
         position: absolute;
         height: 100%;
         width: 25%;

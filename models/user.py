@@ -2,10 +2,10 @@
 """
     module containing user class
 """
-import models
+from models.base_model import BaseModel
 
 
-class User(models.BaseModel):
+class User(BaseModel):
     """
         User class
     """

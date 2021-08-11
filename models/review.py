@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-import models
+from models.base_model import BaseModel
 
 
-class Review(models.BaseModel):
+class Review(BaseModel):
     """
         Review class
     """

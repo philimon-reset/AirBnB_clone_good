@@ -19,7 +19,7 @@ class FileStorage:
     def all(self, cls=None):
         """returns a dictionary containing every object"""
         if (cls is None):
-            return self
+            return self.__objects
         tem = {}
         for key, value in self.__objects.items():
             if key.split(".")[0] == cls.__name__:

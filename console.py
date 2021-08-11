@@ -7,7 +7,7 @@ import models
 import re
 
 class HBNBCommand(cmd.Cmd):
-    """Console"""
+            """Console"""
     prompt = "(hbnb) "
 
     @classmethod

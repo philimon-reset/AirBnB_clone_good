@@ -39,7 +39,7 @@ class DBStorage:
         obj = {}
         if (cls is None):
             for i in models.dummy_tables.values():
-                        for j in self.__session.query(i).all():
+                for j in self.__session.query(i).all():
                     k = "{}.{}".format(type(j).__name__, j.id)
                     j.to_dict()
                     obj[k] = j

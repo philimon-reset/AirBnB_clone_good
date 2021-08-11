@@ -7,6 +7,7 @@ from models.base_model import BaseModel, Base
 from models.state import State
 from sqlalchemy import Column, String, ForeignKey
 
+
 class City(BaseModel, Base):
     """ City class """
 

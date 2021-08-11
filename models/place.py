@@ -8,6 +8,7 @@ from models.user import User
 from sqlalchemy import Column, String, Integer, Float
 from sqlalchemy.sql.schema import ForeignKey
 
+
 class Place(BaseModel, Base):
     """
         Place class

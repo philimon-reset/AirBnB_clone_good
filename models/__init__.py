@@ -19,11 +19,11 @@ from os import environ
 dummy_classes = {"BaseModel": BaseModel, "User": User,
                  "Review": Review, "City": City,
                  "State": State, "Place": Place,
-                "Amenity": Amenity}
+                 "Amenity": Amenity}
 
 dummy_tables = {"states": State, "cities": City,
                 "users": User, "places": Place,
-                "reviews":Review}
+                "reviews": Review}
 
 storage_engine = environ.get("HBNB_TYPE_STORAGE")
 

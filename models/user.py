@@ -7,6 +7,7 @@ from models.base_model import BaseModel, Base
 from sqlalchemy.orm import relationship
 from sqlalchemy import create_engine, Column, Integer, String
 
+
 class User(BaseModel, Base):
     """
         User class

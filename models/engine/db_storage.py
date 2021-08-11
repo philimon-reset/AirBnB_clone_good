@@ -33,24 +33,22 @@ class DBStorage:
             Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
+        """return a dictionary of all used objects
+        (if cls is not present) or objects related to specified cls
         """
-            Query the current session and list all instances of cls, or all instances
-        """
-        result = {}
-        if cls:
-            for row in self.__session.query(cls).all():
-                key = "{}.{}".format(cls.__name__, row.id)
-                row.to_dict()
-                result.update({key:row})
+        obj = {}
+        if (cls is None):
+            for i in models.dummy_tables.values():
+                        for j in self.__session.query(i).all():
+                    k = "{}.{}".format(type(j).__name__, j.id)
+                    j.to_dict()
+                    obj[k] = j
         else:
-            for table in Base.metadata.tables:
-                cls = models.dummy_tables[table]
-                for row in self.__session.query(cls).all():
-                    key = "{}.{}".format(cls.__name__, row.id)
-                    row.to_dict()
-                    result.update({key:row})
-        return result
-
+            for o in self.__session.query(cls).all():
+                k = "{}.{}".format(type(o).__name__, o.id)
+                o.to_dict()
+                obj[k] = o
+        return obj
 
     def new(self, obj):
         """add object to current session

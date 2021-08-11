@@ -2,10 +2,10 @@
 """
     module containing place
 """
-import models
+from models.base_model import BaseModel
 
 
-class Place(models.BaseModel):
+class Place(BaseModel):
     """
         Place class
     """

@@ -3,9 +3,8 @@
     instantiates the storage system, and defines
     dummy classes for further use
 """
-from models.engine.file_storage import FileStorage
-from models.engine.db_storage import DBStorage
-
+from models.engine import file_storage
+from os import environ, getenv
 from models.base_model import BaseModel
 from models.city import City
 from models.review import Review
@@ -14,21 +13,17 @@ from models.user import User
 from models.place import Place
 from models.amenity import Amenity
 
-from os import environ
-
 dummy_classes = {"BaseModel": BaseModel, "User": User,
                  "Review": Review, "City": City,
                  "State": State, "Place": Place,
-                "Amenity": Amenity}
+                 "Amenity": Amenity}
+dummy_obj = {"states": State, "cities": City, "users": User}
 
-dummy_tables = {"states": State, "cities": City,
-                "users": User, "places": Place}
-
-storage_engine = environ.get("HBNB_TYPE_STORAGE")
-
-if (storage_engine == "db"):
+HBNB_TYPE_STORAGE = getenv("HBNB_TYPE_STORAGE")
+if (HBNB_TYPE_STORAGE == "db"):
+    from models.engine.db_storage import DBStorage
     storage = DBStorage()
     storage.reload()
 else:
-    storage = FileStorage()
+    storage = file_storage.FileStorage()
     storage.reload()

@@ -6,8 +6,9 @@ import cmd
 import models
 import re
 
+
 class HBNBCommand(cmd.Cmd):
-            """Console"""
+    """Console"""
     prompt = "(hbnb) "
 
     @classmethod
@@ -62,7 +63,6 @@ class HBNBCommand(cmd.Cmd):
                             setattr(new_instance, pair_split[0], value)
                     else:
                         continue
-                print(new_instance)
                 new_instance.save()
                 print(new_instance.id)
             except:
@@ -114,9 +114,10 @@ class HBNBCommand(cmd.Cmd):
         if arg:
             arg = arg.split()
             if arg[0] in models.dummy_classes:
-                for instance, obj in models.storage.all(models.dummy_classes[arg[0]]).items():
-                    if instance.split('.')[0] == arg[0]:
-                        result.append(str(obj))
+                current_inst = models.dummy_classes[arg[0]]
+                for i, o in models.storage.all(current_inst).items():
+                    if i.split('.')[0] == arg[0]:
+                        result.append(str(o))
             else:
                 print("** class doesn't exist **")
         else:

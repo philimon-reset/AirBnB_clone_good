@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 from models.base_model import BaseModel, Base
-from sqlalchemy import Column, String
+from sqlalchemy import create_engine, Column, Integer, String
 from sqlalchemy.orm import relationship
 
 
@@ -12,8 +12,9 @@ class State(BaseModel, Base):
 
     @property
     def cities(self):
+        """getter attribute cities that returns the list of City"""
         result = []
-        for city in self.cities:
-            if city.state_id == self.id:
-                result.append(city)
+        for i in self.cities:
+            if i.state_id == self.id:
+                result.append(i)
         return result

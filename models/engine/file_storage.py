@@ -17,16 +17,14 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """
-        returns a dictionary containing every object
-        """
-        if (not cls):
-            return self.__objects
-        result = {}
-        for key in self.__objects.keys():
-            if (key.split(".")[0] == cls.__name__):
-                result.update({key: self.__objects[key]})
-        return result
+        """returns a dictionary containing every object"""
+        if (cls is None):
+            return self
+        tem = {}
+        for key, value in self.__objects.items():
+            if key.split(".")[0] == cls.__name__:
+                tem[key] = value
+        return tem
 
     def new(self, obj):
         """
@@ -59,5 +57,8 @@ class FileStorage:
             pass
 
     def delete(self, obj=None):
-        if (obj):
-            self.__objects.pop("{}.{}".format(type(obj).__name__, obj.id))
+        """ to delete obj from __objects if it’s inside
+        """
+        if (obj is not None):
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            del self.__objects[key]

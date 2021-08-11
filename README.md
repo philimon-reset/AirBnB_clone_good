@@ -1,4 +1,4 @@
-# AirBnB_clone
+# AirBnB_clone_v2
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">

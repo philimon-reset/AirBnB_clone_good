@@ -37,8 +37,32 @@ class HBNBCommand(cmd.Cmd):
         """Creates a new instance of a Model"""
         if arg:
             try:
-                new_instance = models.dummy_classes[arg]
-                new_instance = new_instance()
+                args = arg.split()
+                template = models.dummy_classes[args[0]]
+                new_instance = template()
+                for pair in args[1:]:
+                    pair_split = pair.split("=")
+                    if (hasattr(new_instance, pair_split[0])):
+                        value = pair_split[1]
+                        flag = 0
+                        if (value.startswith('"')):
+                            value = value.strip('"')
+                            value = value.replace("\\", "")
+                            value = value.replace("_", " ")
+                        elif ("." in value):
+                            try:
+                                value = float(value)
+                            except:
+                                flag = 1
+                        else:
+                            try:
+                                value = int(value)
+                            except:
+                                flag = 1
+                        if (not flag):
+                            setattr(new_instance, pair_split[0], value)
+                    else:
+                        continue
                 new_instance.save()
                 print(new_instance.id)
             except:
@@ -90,9 +114,10 @@ class HBNBCommand(cmd.Cmd):
         if arg:
             arg = arg.split()
             if arg[0] in models.dummy_classes:
-                for instance, obj in models.storage.all().items():
-                    if instance.split('.')[0] == arg[0]:
-                        result.append(str(obj))
+                current_inst = models.dummy_classes[arg[0]]
+                for i, o in models.storage.all(current_inst).items():
+                    if i.split('.')[0] == arg[0]:
+                        result.append(str(o))
             else:
                 print("** class doesn't exist **")
         else:
@@ -176,7 +201,6 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
         else:
             print("*** Unknown syntax: {}".format(line))
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()

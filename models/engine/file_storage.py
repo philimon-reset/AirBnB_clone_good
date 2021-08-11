@@ -16,11 +16,15 @@ class FileStorage:
     __file_path = "file.json"
     __objects = {}
 
-    def all(self):
-        """
-        returns a dictionary containing every object
-        """
-        return self.__objects
+    def all(self, cls=None):
+        """returns a dictionary containing every object"""
+        if (cls is None):
+            return self
+        tem = {}
+        for key, value in self.__objects.items():
+            if key.split(".")[0] == cls.__name__:
+                tem[key] = value
+        return tem
 
     def new(self, obj):
         """
@@ -51,3 +55,10 @@ class FileStorage:
                 self.__objects[id] = temp_instance
         except:
             pass
+
+    def delete(self, obj=None):
+        """ to delete obj from __objects if it’s inside
+        """
+        if (obj is not None):
+            key = "{}.{}".format(type(obj).__name__, obj.id)
+            del self.__objects[key]

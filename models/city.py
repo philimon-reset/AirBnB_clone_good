@@ -1,8 +1,11 @@
 #!/usr/bin/python3
-import models
+from models.base_model import BaseModel, Base
+from models.state import State
+from sqlalchemy import Column, String, ForeignKey
 
 
-class City(models.BaseModel):
+class City(BaseModel, Base):
     """ City class """
-    state_id = ""
-    name = ""
+    __tablename__ = "cities"
+    state_id = Column(String(60), ForeignKey(State.id))
+    name = Column(String(128), nullable=False)

@@ -33,22 +33,21 @@ class DBStorage:
             Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
-        """
-            Query the current session and list all instances of cls, or all instances
+        """Query the current session and list all instances of cls
         """
         result = {}
         if cls:
             for row in self.__session.query(cls).all():
                 key = "{}.{}".format(cls.__name__, row.id)
                 row.to_dict()
-                result.update({key:row})
+                result.update({key: row})
         else:
             for table in Base.metadata.tables:
                 cls = models.dummy_tables[table]
                 for row in self.__session.query(cls).all():
                     key = "{}.{}".format(cls.__name__, row.id)
                     row.to_dict()
-                    result.update({key:row})
+                    result.update({key: row})
         return result
 
     def new(self, obj):

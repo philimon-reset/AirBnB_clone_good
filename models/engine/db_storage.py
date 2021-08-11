@@ -1,80 +1,75 @@
 #!/usr/bin/python3
+"""DB storage
 """
-module containing DBStorage used for DataBase storage
-"""
-from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session
-
-from os import environ
-
-from models.base_model import Base
 import models
+from models.base_model import BaseModel, Base
+from models import city, state
+from os import environ, getenv
+from sqlalchemy.orm import scoped_session
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 
-HBNB_ENV = environ.get("HBNB_ENV")
-HBNB_MYSQL_USER = environ.get("HBNB_MYSQL_USER")
-HBNB_MYSQL_PWD = environ.get("HBNB_MYSQL_PWD")
-HBNB_MYSQL_HOST = environ.get("HBNB_MYSQL_HOST")
-HBNB_MYSQL_DB = environ.get("HBNB_MYSQL_DB")
+HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
+HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
+HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
+HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
 
 
 class DBStorage:
-    """
-        class for DataBase storage
+    """database storage for mysql conversion
     """
     __engine = None
     __session = None
 
     def __init__(self):
-        """Initialization"""
-
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(
+        """initializer for DBStorage"""
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'.format(
             HBNB_MYSQL_USER,
             HBNB_MYSQL_PWD,
             HBNB_MYSQL_HOST,
             HBNB_MYSQL_DB), pool_pre_ping=True)
-
-        if (HBNB_ENV == "test"):
+        env = getenv("HBNB_ENV")
+        if (env == "test"):
             Base.metadata.drop_all(bind=self.__engine)
 
     def all(self, cls=None):
+        """return a dictionary of all used objects
+        (if cls is not present) or objects related to specified cls
         """
-            Query the current session and list all instances of cls, or all instances
-        """
-        result = {}
-        if cls:
-            for row in self.__session.query(cls).all():
-                result.update({"{}.{}".format(cls.__name__, row.id):row})
+        obj = {}
+        if (cls is None):
+            for i in models.dummy_obj.values():
+                for j in self.__session.query(i).all():
+                    k = "{}.{}".format(type(j).__name__, j.id)
+                    j.to_dict()
+                    obj[k] = j
         else:
-            for table in Base.metadata.tables:
-                cls = models.dummy_tables[table]    
-                for row in self.__session.query(cls).all():
-                    result.update({"{}.{}".format(cls.__name__, row.id):row})
-        return result
+            for o in self.__session.query(cls).all():
+                k = "{}.{}".format(type(o).__name__, o.id)
+                o.to_dict()
+                obj[k] = o
+        return obj
 
     def new(self, obj):
-        """
-            add the object to the current database session
+        """add object to current session
         """
         self.__session.add(obj)
 
     def save(self):
-        """
-            commit all changes of the current database session
+        """commit current done work
         """
         self.__session.commit()
 
     def delete(self, obj=None):
+        """delete obj from session
         """
-            delete from the current database session obj if not None
-        """
-        if obj:
+        if (obj is None):
             self.__session.delete(obj)
 
     def reload(self):
-        """
-            create all tables in the database
+        """reload the session
         """
         Base.metadata.create_all(self.__engine)
-        factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
-        Session = scoped_session(factory)
-        self.__session = Session()
+        Session = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        Scope = scoped_session(Session)
+        self.__session = Scope()

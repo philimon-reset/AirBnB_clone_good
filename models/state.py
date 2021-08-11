@@ -1,4 +1,8 @@
 #!/usr/bin/python3
+"""
+    contains state class to represent a state
+"""
+
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String
 from sqlalchemy.orm import relationship

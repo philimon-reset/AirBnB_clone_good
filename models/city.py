@@ -1,8 +1,11 @@
 #!/usr/bin/python3
+"""
+    contains City class to represent a city
+"""
+
 from models.base_model import BaseModel, Base
 from models.state import State
-from sqlalchemy.sql.schema import ForeignKey
-from sqlalchemy import Column, String
+from sqlalchemy import Column, String, ForeignKey
 
 class City(BaseModel, Base):
     """ City class """

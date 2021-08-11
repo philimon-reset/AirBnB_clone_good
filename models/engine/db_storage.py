@@ -1,4 +1,6 @@
-import sys
+#!/usr/bin/python3
+"""DB storage
+"""
 import models
 from models.base_model import BaseModel, Base
 from models import city, state
@@ -6,11 +8,6 @@ from os import environ, getenv
 from sqlalchemy.orm import scoped_session
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
-
-environ['HBNB_MYSQL_USER'] = 'hbnb_dev'
-environ['HBNB_MYSQL_PWD'] = 'hbnb_test_pwd'
-environ['HBNB_MYSQL_HOST'] = 'localhost'
-environ['HBNB_MYSQL_DB'] = 'hbnb_dev_db'
 
 HBNB_MYSQL_USER = getenv('HBNB_MYSQL_USER')
 HBNB_MYSQL_PWD = getenv('HBNB_MYSQL_PWD')
